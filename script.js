@@ -190,6 +190,51 @@ const imgObserver = new IntersectionObserver(loadImg, {
 
 imgTargets.forEach((img) => imgObserver.observe(img));
 
+//SECTION SLIDER
+const slides = document.querySelectorAll(".slide");
+const slider = document.querySelector(".slider");
+const btnLeft = document.querySelector(".slider__btn--left");
+const btnRight = document.querySelector(".slider__btn--right");
+
+let curSlide = 0;
+const maxSlide = slides.length;
+
+slider.style.overflow = "visible";
+slides.forEach((s, i) => {
+  s.style.transform = `translateX(${100 * i}%)`;
+});
+
+function goToSlide(slide) {
+  slides.forEach((s, i) => {
+    s.style.transform = `translateX(${100 * (i - slide)}%)`;
+  });
+}
+goToSlide(0);
+
+function nextSlide() {
+  if (curSlide === maxSlide - 1) {
+    curSlide = 0;
+  } else {
+    curSlide++;
+  }
+
+  goToSlide(curSlide);
+}
+
+function prevSlide() {
+  if (curSlide === 0) {
+    curSlide = maxSlide - 1;
+  } else {
+    curSlide--;
+  }
+
+  goToSlide(curSlide);
+}
+
+//Next slide
+btnRight.addEventListener("click", nextSlide);
+btnLeft.addEventListener("click", prevSlide);
+
 //SECTION STICKY NAVIGATION NOT USEFULL CUZ OF PERFORMENCE ISSUES
 // const initialCords = section1.getBoundingClientRect();
 
